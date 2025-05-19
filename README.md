@@ -1,8 +1,8 @@
-# commit-genius 🧠
+# commit-amt 🧠
 
-[![npm version](https://img.shields.io/npm/v/commit-genius.svg)](https://www.npmjs.com/package/commit-genius)
-[![npm downloads](https://img.shields.io/npm/dm/commit-genius.svg)](https://www.npmjs.com/package/commit-genius)
-[![license](https://img.shields.io/npm/l/commit-genius.svg)](https://github.com/AmtTawsik/commit-genius/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/commit-amt.svg)](https://www.npmjs.com/package/commit-amt)
+[![npm downloads](https://img.shields.io/npm/dm/commit-amt.svg)](https://www.npmjs.com/package/commit-amt)
+[![license](https://img.shields.io/npm/l/commit-amt.svg)](https://github.com/AmtTawsik/commit-amt/blob/main/LICENSE)
 
 AI-powered conventional commit message generator using Together.ai's DeepSeek-V3 model.  
 Streamline your git workflow with smart, clear commit messages crafted by AI.
@@ -26,13 +26,13 @@ Streamline your git workflow with smart, clear commit messages crafted by AI.
 Use without installing globally:
 
 ```bash
-npx commit-genius
+npx commit-amt
 ````
 
 Or install globally:
 
 ```bash
-npm install -g commit-genius
+npm install -g commit-amt
 ```
 
 ---
@@ -48,7 +48,7 @@ git add .
 2. Run Commit Genius:
 
 ```bash
-npx commit-genius
+npx commit-amt
 ```
 
 3. Review the AI-suggested commit message.

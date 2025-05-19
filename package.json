@@ -1,10 +1,10 @@
 {
-  "name": "commit-genius",
+  "name": "commit-amt",
   "version": "1.0.0",
   "description": "AI-powered conventional commit message generator using Together.ai",
   "main": "index.js",
   "bin": {
-    "commit-genius": "./index.js"
+    "commit-amt": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
