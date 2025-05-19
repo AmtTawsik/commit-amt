@@ -1,16 +1,28 @@
 #!/usr/bin/env node
 
 require('dotenv').config();
+const { Command } = require('commander');
 const chalk = require('chalk');
 const { processGitDiff } = require('./lib/diffProcessor');
-const { generateCommitMessage } = require('./lib/openaiService');
+const { getSuggestion } = require('./lib/aiService');
 const { hasGitRepository, hasStagedChanges, commitWithMessage } = require('./lib/gitCommands');
 const { confirmCommitMessage, editCommitMessage } = require('./lib/promptService');
-const { getConfig } = require('./lib/config');
+
+const program = new Command();
+
+// Programs 
+program
+  .name('commit-genius')
+  .description('AI-powered conventional commit message generator')
+  .option('--local', 'Force using local Ollama')
+  .option('--cloud', 'Force using Together.ai cloud API')
+  .parse();
+
+const options = program.opts();
 
 async function main() {
   try {
-    console.log(chalk.bold.blue('🧠 Commit Genius') + chalk.gray(' - AI-powered commit messages\n'));
+    console.log(chalk.bold.blue('🧠 Commit Genius') + chalk.gray(' - Free AI-powered commit messages\n'));
     
     // Check if we're in a git repository
     if (!await hasGitRepository()) {
@@ -25,16 +37,24 @@ async function main() {
         chalk.yellow(' to stage changes.'));
       process.exit(1);
     }
-
-    // Get config (including API key)
-    const config = await getConfig();
     
     // Get diff of staged changes
     const diff = await processGitDiff();
     
-    // Generate commit message using OpenAI
+    // Determine mode based on flags
+    let mode = null;
+    if (options.local) mode = 'local';
+    if (options.cloud) mode = 'cloud';
+    
+    // Generate commit message
     console.log(chalk.blue('🔍 Analyzing your changes...'));
-    const suggestedMessage = await generateCommitMessage(diff, config.apiKey);
+    const { message: suggestedMessage, engine } = await getSuggestion(diff, {
+      mode,
+      apiKey: process.env.TOGETHER_API_KEY
+    });
+    
+    // Show engine used
+    console.log(chalk.gray(`\n${engine}`));
     
     // Show suggested message and ask for confirmation
     console.log(chalk.green('\n✅ Suggested commit message:'));
