@@ -1,7 +1,7 @@
 {
   "name": "commit-genius",
   "version": "1.0.0",
-  "description": "AI-powered conventional commit message generator with multiple providers",
+  "description": "AI-powered conventional commit message generator using Together.ai",
   "main": "index.js",
   "bin": {
     "commit-genius": "./index.js"
@@ -9,11 +9,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "git",
+    "commit",
+    "ai",
+    "conventional-commits",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
+    "together-ai": "latest",
     "inquirer": "^8.2.4",
     "axios": "^1.3.4",
     "chalk": "^4.1.2",
-    "dotenv": "^16.0.3",
-    "commander": "^11.1.0"
+    "dotenv": "^16.0.3"
   }
 }
