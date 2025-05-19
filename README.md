@@ -45,7 +45,7 @@ npm install -g commit-amt
 git add .
 ```
 
-2. Run Commit Genius:
+2. Run Commit AMT:
 
 ```bash
 npx commit-amt
@@ -91,14 +91,14 @@ npx commit-amt--ai
 TOGETHER_API_KEY=your_api_key_here
 ```
 
-3. Commit Genius will automatically use this API key.
+3. Commit AMT will automatically use this API key.
 
 ---
 
 ## 📝 Example Output
 
 ```
-🧠 Commit Genius - AI-powered commit messages
+🧠 Commit AMT - AI-powered commit messages
 
 🔍 Analyzing your changes...
 
@@ -125,7 +125,7 @@ Sign up for free at [Together.ai](https://together.ai), generate your API key, a
 
 ### What if I have no staged changes?
 
-Stage your changes using `git add <files>` before running Commit Genius.
+Stage your changes using `git add <files>` before running Commit AMT.
 
 ### Can I edit the suggested commit message?
 

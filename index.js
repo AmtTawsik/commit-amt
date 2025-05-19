@@ -91,7 +91,7 @@ async function commitChanges(message) {
 async function main() {
   try {
     console.log(
-      chalk.bold.blue("🧠 Commit Genius") +
+      chalk.bold.blue("🧠 Commit AMT") +
         chalk.gray(" - AI-powered commit messages\n")
     );
 
