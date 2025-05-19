@@ -1,7 +1,7 @@
 {
   "name": "commit-amt",
   "version": "1.0.0",
-  "description": "AI-powered conventional commit message generator using Together.ai",
+  "description": "AI-powered conventional commit message generator using Together.ai, smart CLI for easy, consistent git commits",
   "main": "index.js",
   "bin": {
     "commit-amt": "./index.js"
@@ -10,11 +10,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "git",
     "commit",
+    "conventional-commit",
+    "git",
+    "commit-message",
     "ai",
-    "conventional-commits",
-    "cli"
+    "cli",
+    "together-ai",
+    "git-automation"
   ],
   "author": "",
   "license": "MIT",
