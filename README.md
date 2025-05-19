@@ -60,6 +60,28 @@ npx commit-amt
 
 ---
 
+## 📌 How to Use
+
+### Auto mode (tries local → cloud → rules)
+
+```bash
+npx commit-amt
+```
+
+### Force local mode
+
+```bash
+npx commit-amt--local
+```
+
+### Force cloud mode
+
+```bash
+npx commit-amt--ai
+```
+
+---
+
 ## 🔧 Setup
 
 1. Get your free API key from [Together.ai](https://together.ai).
@@ -127,3 +149,5 @@ Feel free to:
 ## 📜 License
 
 MIT © [Abdullah Al Mubin](https://github.com/AmtTawsik)
+
+```
