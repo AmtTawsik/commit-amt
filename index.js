@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 
 require("dotenv").config();
-const { Together } = require("together-ai");
 const { exec } = require("child_process");
 const util = require("util");
 const inquirer = require("inquirer");
 const chalk = require("chalk");
+const Groq = require("groq-sdk");
 
 const execPromise = util.promisify(exec);
 
-// Initialize Together client
-const together = new Together(process.env.TOGETHER_API_KEY);
+// ✅ Load Groq API key from environment
+const groqApi = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
+
+// ========== Helper Functions ==========
 
 async function getStagedDiff() {
   try {
@@ -23,11 +27,11 @@ async function getStagedDiff() {
 
 async function generateCommitMessage(diff) {
   try {
-    const response = await together.chat.completions.create({
-      model: 'deepseek-ai/DeepSeek-V3',
+    const response = await groqApi.chat.completions.create({
+      model: "llama3-8b-8192",
       messages: [
         {
-          role: 'user',
+          role: "user",
           content: `You are an expert developer assistant that generates conventional commit messages.
 Format your response as "<type>(<scope>): <description>" without any additional text.
 Use common types like feat, fix, docs, style, refactor, test, chore, etc.
@@ -35,19 +39,18 @@ Keep the message concise, clear, and descriptive.
 
 Generate a conventional commit message for this git diff:
 
-${diff}`
-        }
+${diff}`,
+        },
       ],
       max_tokens: 100,
-      temperature: 0.7
+      temperature: 0.7,
     });
 
     return response.choices[0]?.message?.content.trim();
   } catch (error) {
-    throw new Error('Failed to generate commit message: ' + error.message);
+    throw new Error("Failed to generate commit message: " + error.message);
   }
 }
-
 
 async function confirmCommitMessage(message) {
   const { action } = await inquirer.prompt([
@@ -88,6 +91,8 @@ async function commitChanges(message) {
   }
 }
 
+// ========== Main Function ==========
+
 async function main() {
   try {
     console.log(
@@ -95,19 +100,19 @@ async function main() {
         chalk.gray(" - AI-powered commit messages\n")
     );
 
-    // Check if we're in a git repository
+    // Check if inside a git repo
     try {
       await execPromise("git rev-parse --is-inside-work-tree");
-    } catch (error) {
+    } catch {
       console.log(chalk.red("❌ Not a git repository!"));
       process.exit(1);
     }
 
     // Check for API key
-    if (!process.env.TOGETHER_API_KEY) {
-      console.log(chalk.red("❌ Together.ai API key not found!"));
-      console.log(chalk.gray("Please set TOGETHER_API_KEY in your .env file"));
-      console.log(chalk.gray("Get your free API key at https://together.ai"));
+    if (!process.env.GROQ_API_KEY) {
+      console.log(chalk.red("❌ Groq API key not found!"));
+      console.log(chalk.gray("Please set GROQ_API_KEY in your .env file"));
+      console.log(chalk.gray("Get your API key from https://groq.com"));
       process.exit(1);
     }
 
@@ -124,12 +129,12 @@ async function main() {
       process.exit(1);
     }
 
-    // Get diff and generate message
+    // Get diff & generate commit message
     console.log(chalk.blue("🔍 Analyzing your changes..."));
     const diff = await getStagedDiff();
     const suggestedMessage = await generateCommitMessage(diff);
 
-    // Show suggested message and get confirmation
+    // Show suggested message
     console.log(chalk.green("\n✅ Suggested commit message:"));
     console.log(chalk.cyan(`\n  ${suggestedMessage}\n`));
 
